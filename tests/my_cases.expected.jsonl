@@ -1,0 +1,13 @@
+{"name":"dsu n=0","why":"No operations and no vertices: states must be empty.","output":{"states":[]}}
+{"name":"dsu repeated and self unions","why":"(0,1):4 comps/max2; (2,3):3/2; repeat:3/2; self:3/2; (1,3) joins two pairs:2/4; self:2/4.","output":{"states":[[4,2],[3,2],[3,2],[3,2],[2,4],[2,4]]}}
+{"name":"kruskal parallel negative loop isolate","why":"Components {0,1,2},{3,4},{5}. Take -2 (parallel beats 5), 4, 7; self-loop -100 is never selected. n-c=3 edges, cost 9.","output":{"cost":9,"edge_ids":[1,2,4],"components":3}}
+{"name":"prim parallel negative loop isolate","why":"Same graph as above; Prim must restart for {3,4} and for isolate 5.","output":{"cost":9,"edge_ids":[1,2,4],"components":3}}
+{"name":"kruskal tied cycle beyond 32 bits","why":"4-cycle, all weights 1e9: any 3 edges, 3e9 > 2^31-1. Other triples are accepted.","output":{"cost":3000000000,"edge_ids":[0,1,2],"components":1}}
+{"name":"prim negative extremes","why":"Both edges needed: -2e9.","output":{"cost":-2000000000,"edge_ids":[0,1],"components":1}}
+{"name":"scc cycles, self-loop, duplicate cross edges","why":"SCCs {0,1,2},{3,4},{5},{6}; cross edges 2->3, 0->3 (twice) collapse to one pair A->B.","output":{"component":[0,0,0,1,1,2,3],"condensation":[[0,1]]}}
+{"name":"topo duplicate edge and isolate","why":"Constraints 3<1<0 and 4<0; vertex 2 is free. Other valid orders are accepted.","output":{"acyclic":true,"order":[4,3,2,1,0]}}
+{"name":"topo cycle in a later component","why":"Cycle 2->3->4->2 does not touch vertex 0.","output":{"acyclic":false,"order":[]}}
+{"name":"topo self-loop","why":"A self-loop is a cycle.","output":{"acyclic":false,"order":[]}}
+{"name":"dag guard: do not relax from unreachable vertex","why":"Vertex 0 is unreachable; edge 0->2 (-100) must be ignored. d(2)=-3 (parallel edges 1 or 2), d(3)=min(10,-3+7)=4.","output":{"acyclic":true,"distance":[null,0,-3,4],"parent_edge":[-1,-1,1,4]}}
+{"name":"dag cycle unreachable from source","why":"Cycle 2<->3 is unreachable but the whole graph is checked.","output":{"acyclic":false,"distance":[],"parent_edge":[]}}
+{"name":"dag unreachable distance is null not -1","why":"Edge 0->1 points INTO the source; vertex 0 is unreachable.","output":{"acyclic":true,"distance":[null,0],"parent_edge":[-1,-1]}}

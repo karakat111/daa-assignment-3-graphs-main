@@ -1,0 +1,19 @@
+# Kruskal vs Prim benchmark (tests/java/Benchmark.java), seed 20261022
+java.version=25.0.1 vm=Java HotSpot(TM) 64-Bit Server VM os=Windows 11 amd64 cpus=12
+timer=System.nanoTime, warm-up runs per method per size=5, timed runs=7 (Kruskal and Prim alternate)
+
+n=1000 m=5000 components=1 cost=-766772895 (both methods verified: valid forest, equal cost)
+  Kruskal ms: 0,85 1,15 1,36 1,49 0,63 0,95 0,49  | median 0,95
+  Prim    ms: 1,41 1,26 1,57 1,41 0,90 1,20 0,76  | median 1,26
+  (Input.edges conversion alone, included in both: median 0,10 ms)
+
+n=20000 m=100000 components=2 cost=-15167102236 (both methods verified: valid forest, equal cost)
+  Kruskal ms: 9,79 9,90 11,58 12,08 8,79 8,91 9,54  | median 9,79
+  Prim    ms: 18,88 19,01 26,68 27,96 17,65 17,45 17,12  | median 18,88
+  (Input.edges conversion alone, included in both: median 1,37 ms)
+
+n=100000 m=250000 components=655 cost=-52922239178 (both methods verified: valid forest, equal cost)
+  Kruskal ms: 27,93 27,40 28,55 28,33 26,03 26,31 28,59  | median 27,93
+  Prim    ms: 66,72 108,87 76,74 70,05 67,73 71,33 112,30  | median 71,33
+  (Input.edges conversion alone, included in both: median 3,77 ms)
+

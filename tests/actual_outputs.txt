@@ -1,0 +1,20 @@
+# Evidence written by tests/java/Tests.java (command: python tests/run_tests.py)
+dsu n=5 actual: {"states":[[4,2],[3,2],[3,2],[3,2],[2,4],[2,4]]}   expected: {"states":[[4,2],[3,2],[3,2],[3,2],[2,4],[2,4]]}
+kruskal mixed hand case actual: {"cost":9,"edge_ids":[1,2,4],"components":3}   expected: cost 9, ids [1,2,4], components 3
+prim mixed hand case actual: {"cost":9,"edge_ids":[1,2,4],"components":3}   expected: cost 9, ids [1,2,4], components 3
+scc hand case actual: {"component":[2,2,2,3,3,1,0],"condensation":[[2,3]]}   expected: groups {0,1,2},{3,4},{5},{6}; one pair (label(0),label(3))
+topo hand case actual: {"acyclic":true,"order":[4,3,2,1,0]}   expected: acyclic, any order with 3<1<0 and 4<0
+dag README example: distance=[0, 3, -4, 0, 0] reachable=[true, true, true, true, false] parent_edge=[-1, 0, 2, 3, -1]
+route helper (README example): route(0->3)=[0, 1, 2, 3] cost=0; route(source 0)=[0]; route(unreachable 4)=[] (empty = no route)
+dag tied/parallel example: distance=[0, 1, 1, 2] parent_edge=[-1, 0, 1, 3] route(0->3)=[0, 2, 3] cost=2 route(0->1)=[0, 1] via edge 0
+dag unreachable-relax guard actual: {"acyclic":true,"distance":[null,0,-3,4],"parent_edge":[-1,-1,1,4]}   expected distance [null,0,-3,4]
+state reset: eight mixed requests re-run forwards/backwards/shuffled in one JVM; outputs identical = true
+  {"task":"dsu","n":5,"operations":[[0,1],[2,3],[1,3]]}  ->  {"states":[[4,2],[3,2],[2,4]]}
+  {"task":"kruskal","n":4,"edges":[[0,1,4],[1,2,2],[0,2,3]]}  ->  {"cost":5,"edge_ids":[1,2],"components":2}
+  {"task":"prim","n":6,"edges":[[0,1,5],[0,1,-2],[1,2,4],[3,4,7]]}  ->  {"cost":9,"edge_ids":[1,2,3],"components":3}
+  {"task":"scc","n":4,"edges":[[0,1],[1,0],[1,2],[0,2],[2,3]]}  ->  {"component":[0,0,1,2],"condensation":[[0,1],[1,2]]}
+  {"task":"topo","n":3,"edges":[[0,1],[1,2],[2,0]]}  ->  {"acyclic":false,"order":[]}
+  {"task":"dag","n":5,"source":0,"edges":[[0,1,3],[0,2,8],[1,2,-7],[2,3,4]]}  ->  {"acyclic":true,"distance":[0,3,-4,0,null],"parent_edge":[-1,0,2,3,-1]}
+  {"task":"dsu","n":0,"operations":[]}  ->  {"states":[]}
+  {"task":"scc","n":0,"edges":[]}  ->  {"component":[],"condensation":[]}
+# Result: passed=75 failed=0
